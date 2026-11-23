@@ -1,13 +1,17 @@
 #include <iostream>
 #include <thread>
 
-void hello() {
-  std::cout<<"Hello"<<std::endl;
-}
+class background_task {
+  public:
+  void operator()() {
+    std::cout<<"Do something"<<std::endl;
+  }
+};
 
 int main() {
-  std::thread t(hello);
-  t.join();
+  background_task task;
+  std::thread thread{background_task()};
+  thread.join();
   std::cout<<"Help"<<std::endl;
   return 0;
 }
